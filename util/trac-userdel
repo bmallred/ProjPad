@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Remove user from password file
+sudo htpasswd -d /var/lib/trac/.htpasswd $1
+
+# Iterate through each project
+for d in 'ls /var/lib/trac'
+do
+	echo 'Removing user from project ' $d
+	sudo trac-admin /var/lib/trac/$d permission del $1
+done

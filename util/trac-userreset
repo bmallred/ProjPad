@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo htpasswd /var/lib/trac/.htpasswd $1 $2

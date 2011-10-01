@@ -1,0 +1,95 @@
+<VirtualHost *:80>
+
+    #######################################################
+    # General Information
+    #######################################################
+
+    ServerAdmin bmallred@travisassoc.com
+    UseCanonicalName Off
+
+    DocumentRoot /var/www
+    <Directory />
+        WSGIApplicationGroup %{GLOBAL}
+        Options FollowSymLinks
+        AllowOverride None
+    </Directory>
+
+    #######################################################
+    # Trac
+    #######################################################
+
+    Alias /trac /var/lib/trac/
+    <Directory /var/lib/trac/>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride None
+        Order allow,deny
+        allow from all
+
+        SetHandler mod_python
+        PythonHandler trac.web.modpython_frontend
+        PythonOption TracEnvParentDir /var/lib/trac
+        PythonOption TracEnvIndexTemplate /var/www/trac/projects.html
+        PythonOption TracUriRoot /trac/
+    </Directory>
+
+    <LocationMatch "/[^/]+/login">
+        AuthType Basic
+        AuthName "trac"
+
+        # Authenticate with HTPASSWD
+        AuthUserFile /var/lib/trac/.htpasswd
+
+        # Authenticate wth LDAP
+        #AuthBasicProvider ldap
+        #AuthLDAPBindDN ""
+        #AuthLDAPBindPassword "********"
+        #AuthLDAPURL "ldap://127.0.0.1/"
+
+        # Use LDAP group
+        #Require ldap-group ""
+        #Satisfy any
+
+        # Use any valid user
+        Require valid-user
+    </LocationMatch>
+
+    #######################################################
+    # Mercurial
+    #######################################################
+
+    <Directory /var/lib/hg>
+        DirectoryIndex index.html
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+    #######################################################
+    # Script Handling
+    #######################################################
+
+    WSGIScriptAliasMatch ^/hg(.*) /usr/lib/cgi-bin/hgweb.wsgi$1
+    WSGIScriptAlias /trac /usr/lib/python2.6/dist-packages/trac/admin/templates/deploy_trac.wsgi
+    WSGIDaemonProcess wsgitrac user=www-data group=www-data processes=5 threads=10 maximum-requests=1000 umask=0007
+    WSGIProcessGroup wsgitrac
+
+    ScriptAliasMatch ^/([a-zA-Z0-9]+)/cgi-bin/(.+) /usr/lib/cgi-bin/
+    <Directory /usr/lib/cgi-bin/>
+        AddHandler wsgi-script .wsgi
+        Options ExecCGI FollowSymLinks SymLinksIfOwnerMatch
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+    #######################################################
+    # Error Logs
+    #######################################################
+
+    LogLevel warn
+    ErrorLog /var/log/apache2/error-sites.log
+    CustomLog /var/log/apache2/access-sites.log combined
+    CustomLog /var/log/apache2/ssl-access.log combined
+
+</VirtualHost>

@@ -1,0 +1,56 @@
+#!/bin/bash
+
+repodb="sqlite:db/trac.db"
+
+echo -n "Project name: "
+read project
+echo -n "Repository type (hg/git) "
+read repotype
+echo
+
+repopath="/var/lib/$repotype/$project"
+tracpath="/var/lib/trac/$project"
+repoinit=""
+
+if [ "$repotype" == "hg" ]; then
+	repoinit="hg init"
+elif [ "$repotype" == "git" ]; then
+	repoinit="git init"
+else
+	echo Incorrect repository type.
+	exit 1
+fi
+
+echo Creating repository...
+mkdir $repopath
+cd $repopath
+echo -n `$repoinit`
+
+echo Creating Trac environment...
+trac-admin $tracpath initenv $project $repodb $repotype $repopath
+trac-admin $tracpath permission add admin TRAC_ADMIN
+chown -R www-data:www-data $tracpath 
+
+# Update logo (not necessary)
+sed -e 's/src = site\/your_project_logo.png/src = \/logo.png/g' $tracpath/conf/trac.ini > tmp.ini
+cat tmp.ini > $tracpath/conf/trac.ini
+rm tmp.ini
+
+# Configure Trac plugins
+echo "
+[components]
+acct_mgr.* = enabled
+bitten.* = enabled
+customfieldadmin.* = enabled
+mastertickets.* = enabled
+wikiprint.* = enabled
+wikirename.* = enabled
+tracwysiwyg.* = enabled
+tracrpc.* = enabled
+graphviz.* = enabled
+tracext.hg.* = enabled
+tracext.git.* = enabled
+authopenid.* = enabled" >> "$tracpath/conf/trac.ini"
+
+# Upgrade Trac environment
+trac-admin $tracpath upgrade
