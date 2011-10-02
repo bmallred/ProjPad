@@ -2,28 +2,28 @@
 sudo apt-get update
 
 # Install distributed version control systems
-sudo apt-get install git
-sudo apt-get install mercurial
+sudo apt-get -y install git
+sudo apt-get -y install mercurial
 
 # Install Apache web server and modules
-sudo apt-get install apache2
-sudo apt-get install libapache2-mod-python
-sudo apt-get install libapache2-mod-wsgi
+sudo apt-get -y install apache2
+sudo apt-get -y install libapache2-mod-python
+sudo apt-get -y install libapache2-mod-wsgi
 
 # Install Trac and plug-ins or patches
-sudo apt-get install trac
-sudo apt-get install trac-accountmanager
-sudo apt-get install trac-authopenid
-sudo apt-get install trac-bitten
-sudo apt-get install trac-customfieldadmin
-sudo apt-get install trac-git
-sudo apt-get install trac-graphviz
-sudo apt-get install trac-mastertickets
-sudo apt-get install trac-mercurial
-sudo apt-get install trac-wikiprint
-sudo apt-get install trac-wikirename
-sudo apt-get install trac-wysiwyg
-sudo apt-get install trac-xmlrpc
+sudo apt-get -y install trac
+sudo apt-get -y install trac-accountmanager
+sudo apt-get -y install trac-authopenid
+sudo apt-get -y install trac-bitten
+sudo apt-get -y install trac-customfieldadmin
+sudo apt-get -y install trac-git
+sudo apt-get -y install trac-graphviz
+sudo apt-get -y install trac-mastertickets
+sudo apt-get -y install trac-mercurial
+sudo apt-get -y install trac-wikiprint
+sudo apt-get -y install trac-wikirename
+sudo apt-get -y install trac-wysiwyg
+sudo apt-get -y install trac-xmlrpc
 
 # Create directory structure
 sudo mkdir /var/lib/hg
