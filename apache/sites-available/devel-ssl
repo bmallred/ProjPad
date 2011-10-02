@@ -97,8 +97,8 @@
 
     WSGIScriptAliasMatch ^/hg(.*) /usr/lib/cgi-bin/hgweb.wsgi$1
     WSGIScriptAlias /trac /usr/lib/python2.6/dist-packages/trac/admin/templates/deploy_trac.wsgi
-    WSGIDaemonProcess wsgitrac user=www-data group=www-data processes=5 threads=10 maximum-requests=1000 umask=0007
-    WSGIProcessGroup wsgitrac
+    WSGIDaemonProcess wsgitrac-ssl user=www-data group=www-data processes=5 threads=10 maximum-requests=1000 umask=0007
+    WSGIProcessGroup wsgitrac-ssl
 
     ScriptAliasMatch ^/([a-zA-Z0-9]+)/cgi-bin/(.+) /usr/lib/cgi-bin/
     <Directory /usr/lib/cgi-bin/>
