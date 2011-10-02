@@ -36,6 +36,11 @@ sudo cp -R ./apache/sites-available/* /etc/apache2/sites-available/
 sudo cp -R ./www/* /var/www/
 sudo cp ./util/* /usr/bin/
 
+# Configure Agile-Trac
+sudo easy_install http://svn.agile-trac.org/BRANCH/AGILE-TRAC/SOURCE/0.11/REL/
+sudo mv /usr/lib/python2.6/dist-packages/trac /usr/lib/python2.6/dist-packages/trac-orig
+sudo svn co http://svn.agile-trac.org/BRANCH/AGILE-TRAC/SOURCE/0.11/REL/patch/trac/ /usr/lib/python2.6/dist-packages/trac
+
 # Configure sites available
 sudo rm /etc/apache2/sites-enabled/* 
 cd /etc/apache2/sites-enabled; sudo ln -s ../sites-available/devel .
@@ -49,8 +54,13 @@ sudo chown -R www-data:www-data /var/lib/git
 sudo chown -R www-data:www-data /var/lib/trac
 sudo chown -R www-data:www-data /var/www
 
-# Create administrator password
-sudo htpasswd –c /var/lib/trac/.htpasswd admin
-
 # Restart web server
 sudo apache2ctl restart
+
+# Create administrator password
+echo
+echo ATTENTION
+echo Please execute the final command listed below to assign an
+echo administrative password.
+echo
+echo sudo htpasswd –c /var/lib/trac/.htpasswd admin
