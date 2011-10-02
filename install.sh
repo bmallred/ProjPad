@@ -38,8 +38,8 @@ sudo cp ./util/* /usr/bin/
 
 # Configure Agile-Trac
 sudo easy_install http://svn.agile-trac.org/BRANCH/AGILE-TRAC/SOURCE/0.11/REL/
-sudo mv /usr/lib/python2.6/dist-packages/trac /usr/lib/python2.6/dist-packages/trac-orig
-sudo svn co http://svn.agile-trac.org/BRANCH/AGILE-TRAC/SOURCE/0.11/REL/patch/trac/ /usr/lib/python2.6/dist-packages/trac
+sudo mv /usr/lib/python2.7/dist-packages/trac /usr/lib/python2.7/dist-packages/trac-orig
+sudo svn co http://svn.agile-trac.org/BRANCH/AGILE-TRAC/SOURCE/0.11/REL/patch/trac/ /usr/lib/python2.7/dist-packages/trac
 
 # Configure sites available
 sudo rm /etc/apache2/sites-enabled/* 
@@ -63,4 +63,4 @@ echo ATTENTION
 echo Please execute the final command listed below to assign an
 echo administrative password.
 echo
-echo sudo htpasswd –c /var/lib/trac/.htpasswd admin
+echo sudo htpasswd -c /var/lib/trac/.htpasswd admin
