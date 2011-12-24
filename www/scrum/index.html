@@ -1,0 +1,43 @@
+<!doctype>
+<html>
+<head>
+    <link rel="stylesheet" href="site.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://www.modernizr.com/downloads/modernizr-latest.js"></script>
+</head>
+<body>
+    <section class="current">
+        <header>
+            <h1>Product Backlog</h1>
+            <button class="nextScreen fatboy">Sprint</button>
+        </header>
+        <article>
+            <div class="heading">
+                <div class="prod-col-1">Stories</div>
+                <div class="prod-col-2">Business Value</div>
+            </div>
+        </article>
+        <footer>
+            <button class="addStory fatboy">New Story</button>
+        </footer>
+    </section>
+    <section>
+        <header>
+            <h1>Sprint Backlog</h1>
+            <button class="prevScreen fatboy">Product</button>
+        </header>
+        <article class="sprint">
+            <div class="story">
+                <h2>Tasks without stories</h2>
+                <button class="addTask fatboy">Add Task</button>
+            </div>
+            <div class="heading">
+                <div class="sprint-col-1">Task</div><div class="sprint-col-2">Time</div><div class="sprint-col-3">Owner(s)</div>
+            </div>
+        </article>
+        <footer></footer>
+    </section>
+    
+    <script type="text/javascript" src="site.js"></script>
+</body>
+</html>
