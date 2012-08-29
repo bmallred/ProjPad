@@ -40,7 +40,7 @@ rm tmp.ini
 echo "
 [components]
 acct_mgr.* = enabled
-agiletrac.* = enabled
+#agiletrac.* = enabled
 bitten.* = enabled
 customfieldadmin.* = enabled
 mastertickets.* = enabled
